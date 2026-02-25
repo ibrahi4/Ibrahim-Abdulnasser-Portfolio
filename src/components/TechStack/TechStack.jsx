@@ -14,7 +14,7 @@ const jsIcon = "/assets/images/tech-icons/javascriptIcon.svg";
 const tsIcon = "/assets/images/tech-icons/typescriptIcon.svg";
 const jqueryIcon = "/assets/images/tech-icons/jqueryIcon.svg";
 const tailwindIcon = "/assets/images/tech-icons/tailwindIcon.svg";
-const gsapIcon = "/assets/images/tech-icons/gsapIcon.svg";
+const nodejsicon = "/assets/images/tech-icons/nodejsicon.svg";
 const sassIcon = "/assets/images/tech-icons/sassIcon.svg";
 const apiIcon = "/assets/images/tech-icons/apiIcon.svg";
 
@@ -32,25 +32,27 @@ const ciCdIcon = "/assets/images/tech-icons/ciCdIcon.svg";
 
 // Tools icons
 const postmanIcon = "/assets/images/tech-icons/postmanIcon.svg";
-const eclipseIcon = "/assets/images/tech-icons/eclipseIcon.svg";
+
 const vscodeIcon = "/assets/images/tech-icons/vscodeIcon.svg";
 const figmaIcon = "/assets/images/tech-icons/figmaIcon.svg";
 const msOfficeIcon = "/assets/images/tech-icons/msOfficeIcon.svg";
 const jiraIcon = "/assets/images/tech-icons/jiraIcon.svg";
-
+const nextjsIcon= "/assets/images/tech-icons/nextjsIcon.svg";
 const SECTIONS = [
     {
         label: "FRONTEND",
         techs: [
             "React.js",
+            "Next.js",
             "HTML",
+            "Next.js",
             "CSS",
             "Java Script",
             "Type Script",
             "JQuery",
             "Tailwind",
             "REST APIs",
-            "GSAP",
+            "NodeJS",
             "SASS",
         ],
     },
@@ -67,18 +69,19 @@ const SECTIONS = [
             "CI/CD",
         ],
     },
-    { label: "Tools", techs: ["Postman", "Eclipse", "Visual Studio Code", "Figma", "MS Office", "JIRA"] },
+    { label: "Tools", techs: ["Postman", "Visual Studio Code", "Figma", "MS Office", "JIRA"] },
 ];
 
 const TECH_ICONS = {
     "React.js": reactIcon,
+    "Next.js": nextjsIcon,
     HTML: htmlIcon,
     CSS: cssIcon,
     "Java Script": jsIcon,
     "Type Script": tsIcon,
     JQuery: jqueryIcon,
     Tailwind: tailwindIcon,
-    GSAP: gsapIcon,
+    NodeJS: nodejsicon,
     SASS: sassIcon,
 
     "REST APIs": apiIcon,
@@ -93,7 +96,6 @@ const TECH_ICONS = {
     "CI/CD": ciCdIcon,
 
     Postman: postmanIcon,
-    Eclipse: eclipseIcon,
     "Visual Studio Code": vscodeIcon,
     Figma: figmaIcon,
     "MS Office": msOfficeIcon,
