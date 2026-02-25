@@ -41,7 +41,17 @@ const PROJECTS = [
     { label: "Live Demo", href: "https://tinytales-snowy.vercel.app", icon: "↗" },
     { label: "Source Code", href: "https://github.com/ibrahi4/Tinytales", icon: "⌂" },
   ]
-},    
+},  
+    {
+  title: "FURNITURE E-COMMERCE APP",
+  desc: "Furniture E-Commerce App is a mobile application built with React Native, Expo, Redux, Firebase, and Tailwind CSS. It provides a seamless shopping experience for furniture enthusiasts with features like product browsing, user authentication, and an AI-powered recommendation engine. The app is designed to be scalable and secure, making it ideal for furniture retailers looking to enhance customer engagement.",
+  image: "/assets/images/common/furnitureapp.png",
+  tags: ["React Native","Expo", "Redux", "Firebase", "Tailwind CSS"],
+  links: [
+    { label: "Live Demo", href: "https://drive.google.com/file/d/1PmJQgmrl1a_ppI10fgN7OIGoB-8J0V63/view", icon: "↗" },
+    { label: "Source Code", href: "https://github.com/jovywahba/react-native-G", icon: "⌂" },
+  ]
+},   
 ];
 
 export default function Projects() {
