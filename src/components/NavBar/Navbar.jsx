@@ -83,8 +83,8 @@ const Navbar = () => {
           <li>
             <a
               className="download-button"
-              href="/vite-project/public/assets/files/Ibrahim  Abdelnasser  Front-End (React).pdf"
-              download="Ibrahim_Abdulnasser_Front-End_React.pdf"
+              href="/MyCv.pdf"
+              download=""
             >
               RESUME
             </a>
@@ -92,7 +92,7 @@ const Navbar = () => {
         </ul>
 
         <button
-          type="button"
+          type="button" 
           className={`nav-burger ${open ? "is-open" : ""}`}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -113,8 +113,8 @@ const Navbar = () => {
         ))}
         <a
               className="download-button"
-              href="/assets/files/Sisvanthkumar_Sathivadivel__SweResume.pdf"
-              download="Sisvanthkumar_Sathivadivel__SweResume.pdf"
+              href="/vite-project/public/assets/files/Ibrahim_Abdulnasser_Front-End_React.pdf"
+              download="Ibrahim_Abdulnasser_Front-End_React.pdf"
             >
               RESUME
             </a>

@@ -35,7 +35,7 @@ const Hero = () => {
         short: "(max-height: 650px)",
       },
       (ctx) => {
-        const { mobile, tablet, dtop, reduce, short } = ctx.conditions;
+        const { mobile, tablet, reduce, short } = ctx.conditions;
 
         if (reduce) {
           gsap.set(zoomEl, { clearProps: "transform,opacity" });

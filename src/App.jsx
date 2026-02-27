@@ -8,7 +8,6 @@ import Hero from "./components/Hero/Hero";
 import WhoAmI from "./components/WhoAmI/WhoAmI";
 import Experience from "./components/Experience/Experience";
 import Warp from "./components/Warp/Warp";
-import Certifications from "./components/TechnicalCertifications/Certifications";
 import TechStack from "./components/TechStack/TechStack";
 import Contact from "./components/Contact/Contact";
 import Projects from "./components/Projects/Projects";
@@ -39,8 +38,7 @@ const App = () => {
           {/* <DirectionalMarquee /> */}
           <Experience />
           <TechStack/>
-          <Projects />
-          <Certifications />
+          <Projects /> 
           <Contact />
         </div>
       </div>
