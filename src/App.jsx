@@ -11,6 +11,7 @@ import Warp from "./components/Warp/Warp";
 import TechStack from "./components/TechStack/TechStack";
 import Contact from "./components/Contact/Contact";
 import Projects from "./components/Projects/Projects";
+import Footer from "./components/Footer/Footer";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
 
@@ -40,6 +41,7 @@ const App = () => {
           <TechStack/>
           <Projects /> 
           <Contact />
+          <Footer />
         </div>
       </div>
     </>
