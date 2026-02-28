@@ -1,14 +1,19 @@
+/* ═══════════════════════════════════════════════════
+   PROJECTS SECTION — Production Grade Dark Theme
+═══════════════════════════════════════════════════ */
+
 .projects {
   position: relative;
   width: 100%;
   padding: 90px 0 70px;
   color: #fff;
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
+/* ── Section Header ── */
 .sectionHeader {
   width: min(1200px, 92%);
-  margin: 0 auto 42px;
+  margin: 0 auto 48px;
   text-align: center;
 }
 
@@ -17,7 +22,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.45em;
   text-transform: uppercase;
-  color: var(--hs-accent, #c46b1f);
+  color: #c46b1f;
   opacity: 0.95;
 }
 
@@ -34,81 +39,105 @@
   max-width: 70ch;
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.7;
-  font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
 }
 
-/* ---------- CARDS like screenshot ---------- */
+/* ═══════════════════════════════════════════════════
+   GRID — Equal cards on ALL screen sizes
+═══════════════════════════════════════════════════ */
+
 .projectsGrid {
   width: min(1200px, 92%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
+
+  /* Desktop: 2 columns */
+  grid-template-columns: repeat(2, 1fr);
+
+  /* Force equal row heights */
+  align-items: stretch;
 }
+
+/* ═══════════════════════════════════════════════════
+   CARD
+═══════════════════════════════════════════════════ */
 
 .projectCard {
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(10, 10, 10, 0.35);
+  background: rgba(10, 10, 10, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  /* hover effects base */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transform: translateZ(0);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+
+  /* KEY: flex column so footer always sticks to bottom */
+  display: flex;
+  flex-direction: column;
 }
 
+/* ── Media (fixed ratio = equal across all cards) ── */
 .projectMedia {
   position: relative;
-  height: clamp(180px, 16vw, 240px);
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* ← هنا السر: نسبة ثابتة مش height */
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .projectMedia img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transform: scale(1.02);
   filter: saturate(1.05) contrast(1.02);
-
   transition: transform 0.6s ease, filter 0.6s ease;
 }
-
 
 .projectMediaOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.05),
-    rgba(0, 0, 0, 0.55) 65%,
-    rgba(0, 0, 0, 0.85)
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.5) 65%,
+    rgba(0, 0, 0, 0.88)
   );
-  opacity: 1;
   transition: opacity 0.35s ease;
 }
 
+/* ── Body ── */
 .projectBody {
-  padding: 18px 20px 18px;
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;          /* ← يملا باقي الكارد */
 }
 
 .projectTitle {
   margin: 0 0 10px;
-  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
   font-weight: 700;
   letter-spacing: -0.01em;
-
   transition: color 0.25s ease;
 }
 
 .projectDesc {
   margin: 0 0 16px;
-  color: rgba(255, 255, 255, 0.52);
-  line-height: 1.7;
-  font-size: 0.95rem;
-  max-width: 72ch;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.72;
+  font-size: 0.88rem;
+  flex: 1;           /* ← يدفع الـ footer للأسفل دايمًا */
+
+  /* Clamp long descriptions — 4 lines max */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
   transition: color 0.25s ease;
 }
@@ -116,124 +145,230 @@
 .projectTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   margin: 0 0 18px;
 }
 
 .tag {
-  font-size: 0.78rem;
-  padding: 8px 12px;
+  font-size: 0.73rem;
+  padding: 5px 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.65);
-
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.25s ease;
 }
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS — Glassmorphism + Vivid Gradient
+═══════════════════════════════════════════════════ */
 
 .projectFooter {
   display: flex;
-  gap: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  flex-wrap: wrap;
 }
 
-.projectLink {
+.projectBtn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  padding: 9px 20px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  color: rgba(120, 210, 255, 0.95);
-  font-size: 0.95rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: transform 0.22s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  white-space: nowrap;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 
-  transition: color 0.2s ease, transform 0.2s ease;
+  /* shimmer layer */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      108deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.22) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+
+  &:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.55s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.12);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.96);
+    filter: brightness(0.95);
+  }
 }
 
-.projectLink .icon {
-  opacity: 0.9;
+/* ── Live Demo: Cyan → Blue neon ── */
+.btnPrimary {
+  background: linear-gradient(135deg, #0cd541 0%, #ff9900 60%, #fa4c0d 100%);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 180, 255, 0.35),
+    0 4px 22px rgba(0, 140, 255, 0.35);
+
+  /* glass overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  &:hover {
+    box-shadow:
+      0 0 0 2px rgba(0, 200, 255, 0.5),
+      0 0 35px rgba(0, 160, 255, 0.55),
+      0 8px 28px rgba(0, 100, 255, 0.4);
+  }
 }
 
-.projectLink:hover {
-  text-decoration: underline;
+/* ── Source Code: Orange → Pink hot ── */
+.btnSecondary {
+  background: linear-gradient(135deg, #ef0783 60%, #b8327e 40%);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(247, 37, 133, 0.35),
+    0 4px 22px rgba(247, 37, 133, 0.3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  &:hover {
+    box-shadow:
+      0 0 0 2px rgba(247, 37, 133, 0.55),
+      0 0 35px rgba(247, 37, 133, 0.5),
+      0 8px 28px rgba(200, 0, 100, 0.4);
+  }
 }
+
+.btnIcon {
+  font-size: 0.88rem;
+  position: relative;
+  z-index: 1;
+}
+
+.btnText {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   CARD HOVER STATES
+═══════════════════════════════════════════════════ */
 
 .projectCard:hover,
 .projectCard:focus-within {
-  transform: translateY(-10px);
-  border-color: rgba(196, 107, 31, 0.35);
+  transform: translateY(-8px);
+  border-color: rgba(196, 107, 31, 0.3);
   box-shadow:
-    0 26px 90px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(196, 107, 31, 0.18),
-    0 0 38px rgba(196, 107, 31, 0.18);
+    0 32px 100px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(196, 107, 31, 0.15),
+    0 0 45px rgba(196, 107, 31, 0.15);
 }
 
-.projectCard:hover .projectMedia img,
-.projectCard:focus-within .projectMedia img {
+.projectCard:hover .projectMedia img {
   transform: scale(1.08);
-  filter: saturate(1.15) contrast(1.08);
+  filter: saturate(1.18) contrast(1.07);
 }
 
-.projectCard:hover .projectMediaOverlay,
-.projectCard:focus-within .projectMediaOverlay {
-  opacity: 0.85;
+.projectCard:hover .projectMediaOverlay {
+  opacity: 0.82;
 }
 
-.projectCard:hover .projectTitle,
-.projectCard:focus-within .projectTitle {
-  color: rgba(255, 255, 255, 0.95);
+.projectCard:hover .projectTitle {
+  color: rgba(255, 255, 255, 0.97);
 }
 
-.projectCard:hover .projectDesc,
-.projectCard:focus-within .projectDesc {
-  color: rgba(255, 255, 255, 0.62);
+.projectCard:hover .projectDesc {
+  color: rgba(255, 255, 255, 0.65);
 }
 
-.projectCard:hover .tag,
-.projectCard:focus-within .tag {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.78);
+.projectCard:hover .tag {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.projectCard:hover .projectLink,
-.projectCard:focus-within .projectLink {
-  color: rgba(196, 107, 31, 0.95);
+/* prevent card hover interfering with button hover */
+.projectCard:hover .projectBtn:not(:hover) {
+  transform: translateY(0);
 }
 
-.projectCard:hover .projectLink:hover {
-  transform: translateX(2px);
-}
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
 
-/* ---------- Responsive ---------- */
+/* Tablet */
 @media (max-width: 900px) {
   .projectsGrid {
     grid-template-columns: 1fr;
-  }
-
-  .sectionTitle {
-    max-width: 16ch;
+    max-width: 580px;   /* ← cards مش بتتمط */
     margin-left: auto;
     margin-right: auto;
   }
+
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
 }
 
-@media (max-width: 420px) {
+/* Mobile */
+@media (max-width: 520px) {
+  .projects {
+    padding: 60px 0 50px;
+  }
+
   .projectBody {
     padding: 16px;
   }
 
+  .projectBtn {
+    padding: 8px 16px;
+    font-size: 0.76rem;
+  }
+
   .projectFooter {
-    flex-wrap: wrap;
-    row-gap: 10px;
+    gap: 10px;
   }
 }
 
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .projectCard,
   .projectMedia img,
-  .projectMediaOverlay,
-  .tag,
-  .projectLink {
+  .projectBtn {
     transition: none !important;
   }
 

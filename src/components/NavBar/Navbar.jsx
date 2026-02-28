@@ -84,7 +84,7 @@ const Navbar = () => {
             <a
               className="download-button"
               href="/MyCv.pdf"
-              download=""
+              download="Ibrahim_Abdulnasser_Front-End_React.pdf"
             >
               RESUME
             </a>
