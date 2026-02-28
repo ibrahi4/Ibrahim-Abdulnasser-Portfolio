@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger, SplitText, ScrollSmoother } from "gsap/all";
 
-import Cursor from "./ui/cursor/Cursor";
+
 import Navbar from "./components/NavBar/Navbar";
 import Hero from "./components/Hero/Hero";
 import WhoAmI from "./components/WhoAmI/WhoAmI";
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <>
       <Warp />
-      <Cursor />
+      
       <div id="smooth-wrapper">
           <Navbar />
         <div id="smooth-content">
