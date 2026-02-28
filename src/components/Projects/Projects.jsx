@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Projects.scss";
 
 const PROJECTS = [
@@ -8,8 +8,8 @@ const PROJECTS = [
     image: "/assets/images/common/proj1.png",
     tags: ["React JS", "Firebase", "Tailwind CSS", "AI Analytics"],
     links: [
-      { label: "Live Demo", href: "https://farm-vet-e-shop-1.vercel.app" },
-      { label: "Source Code", href: "https://github.com/ibrahi4/Farm-Vet-E-Shop-1" },
+      { label: "Live Demo",    href: "https://farm-vet-e-shop-1.vercel.app" },
+      { label: "Source Code",  href: "https://github.com/ibrahi4/Farm-Vet-E-Shop-1" },
     ],
   },
   {
@@ -18,7 +18,7 @@ const PROJECTS = [
     image: "/assets/images/common/QTX.png",
     tags: ["React JS", "Node JS", "Express JS", "MongoDB", "Tailwind CSS", "AI Analytics"],
     links: [
-      { label: "Live Demo", href: "https://drive.google.com/file/d/1kZ6tJ4QyPx-Asf6haKUU4GZG7eGhdN7E/view" },
+      { label: "Live Demo",   href: "https://drive.google.com/file/d/1kZ6tJ4QyPx-Asf6haKUU4GZG7eGhdN7E/view" },
       { label: "Source Code", href: "https://github.com/ibrahi4/QTX-DASHBOARD" },
     ],
   },
@@ -28,7 +28,7 @@ const PROJECTS = [
     image: "/assets/images/common/proj2.png",
     tags: ["React JS", "Firebase", "Tailwind CSS", "AI Chatbot"],
     links: [
-      { label: "Live Demo", href: "https://totc-l8do.vercel.app/" },
+      { label: "Live Demo",   href: "https://totc-l8do.vercel.app/" },
       { label: "Source Code", href: "https://github.com/ibrahi4/TOTC" },
     ],
   },
@@ -38,7 +38,7 @@ const PROJECTS = [
     image: "/assets/images/common/tintyles.png",
     tags: ["Next JS", "Node JS", "Express JS", "MongoDB", "Tailwind CSS"],
     links: [
-      { label: "Live Demo", href: "https://tinytales-snowy.vercel.app" },
+      { label: "Live Demo",   href: "https://tinytales-snowy.vercel.app" },
       { label: "Source Code", href: "https://github.com/ibrahi4/Tinytales" },
     ],
   },
@@ -48,13 +48,35 @@ const PROJECTS = [
     image: "/assets/images/common/furnitureapp.png",
     tags: ["React Native", "Expo", "Redux", "Firebase", "Tailwind CSS"],
     links: [
-      { label: "Live Demo", href: "https://drive.google.com/file/d/1PmJQgmrl1a_ppI10fgN7OIGoB-8J0V63/view" },
+      { label: "Live Demo",   href: "https://drive.google.com/file/d/1PmJQgmrl1a_ppI10fgN7OIGoB-8J0V63/view" },
       { label: "Source Code", href: "https://github.com/jovywahba/react-native-G" },
     ],
   },
 ];
 
 export default function Projects() {
+
+  /* ── Intersection Observer: reveal cards on scroll ── */
+  useEffect(() => {
+    const cards = document.querySelectorAll(".projectCard");
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            // once revealed keep it visible
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    cards.forEach((card) => io.observe(card));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section className="projects" id="projects">
 
@@ -67,9 +89,12 @@ export default function Projects() {
       </div>
 
       <div className="projectsGrid">
-        {PROJECTS.map((p) => (
-          <article className="projectCard" key={p.title}>
-
+        {PROJECTS.map((p, i) => (
+          <article
+            className="projectCard"
+            key={p.title}
+            style={{ "--card-index": i }}
+          >
             <div className="projectMedia">
               <img src={p.image} alt={p.title} loading="lazy" />
               <div className="projectMediaOverlay" />
@@ -101,7 +126,6 @@ export default function Projects() {
                   </a>
                 ))}
               </div>
-
             </div>
           </article>
         ))}
