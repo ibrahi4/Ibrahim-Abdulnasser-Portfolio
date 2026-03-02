@@ -168,7 +168,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f0a901;
+  background: #ae2e00;
   box-shadow: 0 0 0 3px rgba(200, 93, 0, 0.2);
   animation: ct-pulse 2s ease infinite;
   flex-shrink: 0;
@@ -180,7 +180,7 @@
 .ct-badge-text {
   font-size: 0.78rem;
   font-weight: 500;
-  color: rgba(0, 200, 100, 0.9);
+  color:#f97726;
   letter-spacing: 0.03em;
 }
 
@@ -198,7 +198,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(196, 107, 31, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
 }
 .ct-info-name {
