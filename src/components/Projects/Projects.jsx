@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import "./Projects.scss";
 
 const PROJECTS = [
@@ -55,26 +55,44 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
+  const observerRef = useRef(null);
+  const cardsRef = useRef([]);
 
-  /* ── Intersection Observer: reveal cards on scroll ── */
+  /* ── Optimized Intersection Observer with debouncing ── */
   useEffect(() => {
-    const cards = document.querySelectorAll(".projectCard");
+    const options = {
+      threshold: 0.08,
+      rootMargin: "100px 0px", // Load earlier for smoother experience
+    };
 
-    const io = new IntersectionObserver(
-      (entries) => {
+    observerRef.current = new IntersectionObserver((entries) => {
+      // Batch DOM updates with requestAnimationFrame
+      requestAnimationFrame(() => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Add class and immediately unobserve
             entry.target.classList.add("is-visible");
-            // once revealed keep it visible
-            io.unobserve(entry.target);
+            observerRef.current?.unobserve(entry.target);
           }
         });
-      },
-      { threshold: 0.12 }
-    );
+      });
+    }, options);
 
-    cards.forEach((card) => io.observe(card));
-    return () => io.disconnect();
+    // Observe all cards
+    cardsRef.current.forEach((card) => {
+      if (card) observerRef.current?.observe(card);
+    });
+
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, []);
+
+  // Callback ref for card elements
+  const setCardRef = useCallback((el, index) => {
+    if (el) {
+      cardsRef.current[index] = el;
+    }
   }, []);
 
   return (
@@ -93,10 +111,16 @@ export default function Projects() {
           <article
             className="projectCard"
             key={p.title}
+            ref={(el) => setCardRef(el, i)}
             style={{ "--card-index": i }}
           >
             <div className="projectMedia">
-              <img src={p.image} alt={p.title} loading="lazy" />
+              <img 
+                src={p.image} 
+                alt={p.title} 
+                loading="lazy"
+                decoding="async"
+              />
               <div className="projectMediaOverlay" />
             </div>
 
