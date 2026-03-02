@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   PROJECTS SECTION — Optimized Performance
+   PROJECTS SECTION — Mobile Optimized
 ═══════════════════════════════════════════════════ */
 
 .projects {
@@ -8,9 +8,11 @@
   padding: 90px 0 70px;
   color: #fff;
   font-family: "Inter", system-ui, sans-serif;
+  
+  /* ✅ Force GPU acceleration on section */
+  transform: translateZ(0);
 }
 
-/* ── Section Header ── */
 .sectionHeader {
   width: min(1200px, 92%);
   margin: 0 auto 48px;
@@ -42,9 +44,6 @@
   font-size: clamp(0.9rem, 1.35vw, 1.05rem);
 }
 
-/* ═══════════════════════════════════════════════════
-   GRID
-═══════════════════════════════════════════════════ */
 .projectsGrid {
   width: min(1200px, 92%);
   margin: 0 auto;
@@ -55,7 +54,7 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   CARD — Performance Optimized
+   CARD — Ultra Optimized
 ═══════════════════════════════════════════════════ */
 .projectCard {
   border-radius: 18px;
@@ -63,42 +62,60 @@
   background: rgba(10, 10, 10, 0.38);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
 
-  /* ✅ GPU Acceleration */
-  transform: translate3d(0, 0, 0);
-  will-change: opacity, transform;
+  /* ✅ Critical Performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
   
-  /* ✅ Layout optimization */
-  contain: layout style paint;
-
-  /* ── hidden state (before scroll) ── */
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity   0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  /* stagger by card index - reduced from 0.07s to 0.05s */
-  transition-delay: calc(var(--card-index, 0) * 0.05s);
-
-  /* ── visible state ── */
-  &.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    will-change: auto; // Remove after animation
+  /* ✅ Remove expensive effects on mobile */
+  @media (max-width: 768px) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
-  /* ── hover (only when visible) ── */
-  &.is-visible:hover {
-    transform: translateY(-6px);
-    border-color: rgba(196, 107, 31, 0.25);
-    box-shadow:
-      0 28px 80px rgba(0, 0, 0, 0.65),
-      0 0 0 1px rgba(196, 107, 31, 0.12);
+  /* ✅ Desktop blur only */
+  @media (min-width: 769px) {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateZ(0) translateY(20px);
+  
+  /* ✅ Faster transitions on mobile */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  @media (min-width: 769px) {
+    transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Stagger - less on mobile */
+  @media (max-width: 768px) {
+    transition-delay: calc(var(--card-index, 0) * 0.03s);
+  }
+  
+  @media (min-width: 769px) {
+    transition-delay: calc(var(--card-index, 0) * 0.05s);
+  }
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateZ(0) translateY(0);
+  }
+
+  /* ✅ Simplified hover on desktop only */
+  @media (min-width: 769px) and (hover: hover) {
+    &.is-visible:hover {
+      transform: translateZ(0) translateY(-6px);
+      border-color: rgba(196, 107, 31, 0.25);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65);
+    }
   }
 }
 
@@ -109,9 +126,7 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   flex-shrink: 0;
-  
-  /* ✅ Prevent layout shifts */
-  contain: layout;
+  background: #0a0a0a;
 }
 
 .projectMedia img {
@@ -120,15 +135,21 @@
   object-fit: cover;
   object-position: center top;
   
-  /* ✅ GPU acceleration */
-  transform: translate3d(0, 0, 0) scale(1.02);
+  /* ✅ Critical for performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   
-  /* ✅ Optimized image rendering */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  /* ✅ No scale on mobile */
+  @media (max-width: 768px) {
+    transform: translateZ(0) scale(1);
+    transition: none;
+  }
   
-  /* ✅ Reduced transition time */
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  @media (min-width: 769px) and (hover: hover) {
+    transform: translateZ(0) scale(1.02);
+    transition: transform 0.4s ease;
+  }
 }
 
 .projectMediaOverlay {
@@ -140,11 +161,17 @@
     rgba(0, 0, 0, 0.5) 65%,
     rgba(0, 0, 0, 0.88)
   );
-  transition: opacity 0.3s ease;
   pointer-events: none;
+  
+  @media (max-width: 768px) {
+    transition: none;
+  }
+  
+  @media (min-width: 769px) {
+    transition: opacity 0.3s ease;
+  }
 }
 
-/* ── Body ── */
 .projectBody {
   padding: 20px 22px 22px;
   display: flex;
@@ -157,7 +184,14 @@
   font-size: clamp(1rem, 1.5vw, 1.3rem);
   font-weight: 700;
   letter-spacing: -0.01em;
-  transition: color 0.25s ease;
+  
+  @media (max-width: 768px) {
+    transition: none;
+  }
+  
+  @media (min-width: 769px) {
+    transition: color 0.25s ease;
+  }
 }
 
 .projectDesc {
@@ -167,10 +201,19 @@
   font-size: 0.88rem;
   flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  transition: color 0.25s ease;
+  
+  @media (max-width: 768px) {
+    transition: none;
+    -webkit-line-clamp: 2;
+  }
+  
+  @media (min-width: 769px) {
+    transition: color 0.25s ease;
+    -webkit-line-clamp: 4;
+  }
 }
 
 .projectTags {
@@ -187,11 +230,18 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.6);
-  transition: all 0.2s ease;
+  
+  @media (max-width: 768px) {
+    transition: none;
+  }
+  
+  @media (min-width: 769px) {
+    transition: all 0.2s ease;
+  }
 }
 
 /* ═══════════════════════════════════════════════════
-   BUTTONS — Optimized
+   BUTTONS
 ═══════════════════════════════════════════════════ */
 .projectFooter {
   display: flex;
@@ -212,27 +262,31 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
-  overflow: hidden;
   cursor: pointer;
   border: none;
-  outline: none;
-  
-  /* ✅ Simplified transition */
-  transition: transform 0.2s ease, box-shadow 0.25s ease;
-  
   white-space: nowrap;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   
-  /* ✅ GPU acceleration */
-  transform: translate3d(0, 0, 0);
+  /* ✅ No blur on mobile */
+  @media (max-width: 768px) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: none;
+  }
+  
+  @media (min-width: 769px) {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+  }
 
-  &:hover {
-    transform: translateY(-2px);
+  @media (min-width: 769px) and (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   &:active { 
-    transform: translateY(0) scale(0.97); 
+    transform: scale(0.97); 
   }
 }
 
@@ -240,49 +294,36 @@
   background: linear-gradient(135deg, #e98e06 60%, #fa4c0d 40%);
   color: #fff;
   box-shadow: 0 0 0 1px rgba(0,180,255,0.3), 0 4px 18px rgba(0,140,255,0.3);
-
-  &:hover {
-    box-shadow:
-      0 0 0 2px rgba(0,200,255,0.4),
-      0 0 30px rgba(0,160,255,0.45);
-  }
 }
 
 .btnSecondary {
   background: linear-gradient(135deg, #c8016b 60%, #a31967 40%);
   color: #fff;
   box-shadow: 0 0 0 1px rgba(247,37,133,0.3), 0 4px 18px rgba(247,37,133,0.25);
+}
 
-  &:hover {
-    box-shadow:
-      0 0 0 2px rgba(247,37,133,0.45),
-      0 0 30px rgba(247,37,133,0.4);
+/* ✅ Desktop-only hover effects */
+@media (min-width: 769px) and (hover: hover) {
+  .projectCard.is-visible:hover .projectMedia img {
+    transform: translateZ(0) scale(1.06);
   }
-}
 
-.btnIcon { font-size: 0.88rem; }
+  .projectCard.is-visible:hover .projectMediaOverlay { 
+    opacity: 0.85; 
+  }
 
-/* ── Simplified hover states ── */
-.projectCard.is-visible:hover .projectMedia img {
-  transform: translate3d(0, 0, 0) scale(1.06);
-}
+  .projectCard.is-visible:hover .projectTitle { 
+    color: rgba(255,255,255,0.95); 
+  }
 
-.projectCard.is-visible:hover .projectMediaOverlay { 
-  opacity: 0.85; 
-}
+  .projectCard.is-visible:hover .projectDesc { 
+    color: rgba(255,255,255,0.6); 
+  }
 
-.projectCard.is-visible:hover .projectTitle { 
-  color: rgba(255,255,255,0.95); 
-}
-
-.projectCard.is-visible:hover .projectDesc { 
-  color: rgba(255,255,255,0.6); 
-}
-
-.projectCard.is-visible:hover .tag {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.75);
+  .projectCard.is-visible:hover .tag {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+  }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -294,6 +335,7 @@
     max-width: 580px;
     margin-left: auto;
     margin-right: auto;
+    gap: 20px;
   }
   .sectionTitle { font-size: clamp(2rem, 8vw, 3.5rem); }
 }
@@ -303,18 +345,12 @@
   .projectBody   { padding: 16px; }
   .projectBtn    { padding: 8px 16px; font-size: 0.76rem; }
   .projectFooter { gap: 10px; }
+  .projectCard   { border-radius: 14px; }
 }
 
-/* ✅ Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .projectCard,
-  .projectMedia img,
-  .projectBtn,
-  .tag {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
+  * {
     animation: none !important;
+    transition: none !important;
   }
 }

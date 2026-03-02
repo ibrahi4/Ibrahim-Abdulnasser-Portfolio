@@ -71,7 +71,7 @@ export default function Contact() {
   { 
     icon: "/assets/images/tech-icons/location-pin-svgrepo-com.svg",
     label: "Location",
-    value: "Minya, Egypt"
+    value: "Cairo, Egypt"
   },
   { 
     icon: "/assets/images/tech-icons/phone-call-24-hours-svgrepo-com.svg",
@@ -81,7 +81,7 @@ export default function Contact() {
   { 
     icon: "/assets/images/tech-icons/coding-html-svgrepo-com.svg",
     label: "Speciality",
-    value: "React & Next.js and React Native · Full-Stack"
+    value: "React & Next.js and React Native"
   },
 ].map((item) => (
   <div className="ct-info-row" key={item.label}>
