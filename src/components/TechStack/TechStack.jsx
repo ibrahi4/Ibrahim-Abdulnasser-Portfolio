@@ -15,13 +15,9 @@ const apiIcon          = "/assets/images/tech-icons/apiIcon.svg";
 const postgresIcon     = "/assets/images/tech-icons/postgresIcon.svg";
 const mongoIcon        = "/assets/images/tech-icons/mongoIcon.svg";
 const mysqlIcon        = "/assets/images/tech-icons/mysqlIcon.svg";
-const h2Icon           = "/assets/images/tech-icons/h2Icon.svg";
 const dockerIcon       = "/assets/images/tech-icons/dockerIcon.svg";
 const githubActionsIcon= "/assets/images/tech-icons/githubActionsIcon.svg";
 const ciCdIcon         = "/assets/images/tech-icons/ciCdIcon.svg";
-const postmanIcon      = "/assets/images/tech-icons/postmanIcon.svg";
-const vscodeIcon       = "/assets/images/tech-icons/vscodeIcon.svg";
-const figmaIcon        = "/assets/images/tech-icons/figmaIcon.svg";
 const msOfficeIcon     = "/assets/images/tech-icons/msOfficeIcon.svg";
 const jiraIcon         = "/assets/images/tech-icons/jiraIcon.svg";
 const nextjsIcon       = "/assets/images/tech-icons/nextjsIcon.svg";
@@ -59,7 +55,7 @@ const SECTIONS = [
       { name: "PostgreSQL",  icon: postgresIcon },
       { name: "MongoDB",     icon: mongoIcon },
       { name: "MySQL",       icon: mysqlIcon },
-      { name: "H2",          icon: h2Icon },
+    
     ],
   },
   {
@@ -77,9 +73,7 @@ const SECTIONS = [
     label: "Tools",
     emoji: "◎",
     techs: [
-      { name: "Postman",   icon: postmanIcon },
-      { name: "VS Code",   icon: vscodeIcon },
-      { name: "Figma",     icon: figmaIcon },
+    
       { name: "MS Office", icon: msOfficeIcon },
       { name: "JIRA",      icon: jiraIcon },
     ],

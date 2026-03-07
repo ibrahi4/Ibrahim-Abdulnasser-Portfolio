@@ -1,80 +1,100 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./WhoAmi.scss";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import SplitType from "split-type";
 import { aboutmeDescription } from "../../constants/aboutmeConstants";
 
-gsap.registerPlugin(ScrollTrigger);
+const STATS = [
+  { num: "1", label: "Years Experience" },
+  { num: "5+", label: "Projects Shipped" },
+  { num: "2", label: "Internships"      },
+];
 
-/**
- * @author Ibrahim Abdulnasser
- * @description WhoAmI component for the portfolio website. This section introduces the portfolio owner with a description and an image. The description text animates into view word by word as the user scrolls, creating an engaging introduction to the portfolio. The component uses GSAP for scroll-triggered animations and SplitType for splitting the text into words for individual animation control.
- * @returns WhoAmI component that introduces the portfolio owner with a description and an image. The description text animates into view word by word as the user scrolls, creating an engaging introduction to the portfolio. The component uses GSAP for scroll-triggered animations and SplitType for splitting the text into words for individual animation control.
- */
 const WhoAmI = () => {
   const sectionRef = useRef(null);
-  const textRef = useRef(null);
 
-  useGSAP(() => {
-    const root = sectionRef.current;
-    const p = textRef.current;
-    if (!root || !p) return;
+  useEffect(() => {
+    const els = sectionRef.current?.querySelectorAll(".wa-reveal");
+    if (!els?.length) return;
 
-    const split = new SplitType(p, {
-      types: "words",
-      wordClass: "whoami-word",
-      tagName: "span",
-    });
-
-    // Force initial state RIGHT NOW
-    gsap.set(split.words, { opacity: 0.15, yPercent: 20 });
-
-    const tween = gsap.to(split.words, {
-      opacity: 1,
-      yPercent: 0,
-      stagger: 0.02,
-      ease: "none",
-      scrollTrigger: {
-        trigger: root,
-        start: "top 70%",
-        end: "bottom 40%",
-        scrub: true,
-        invalidateOnRefresh: true,
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
       },
-    });
+      { threshold: 0.15 }
+    );
 
-    const img = root.querySelector("img");
-    const refresh = () => ScrollTrigger.refresh();
-
-    requestAnimationFrame(refresh);
-    img?.addEventListener("load", refresh, { once: true });
-
-    return () => {
-      img?.removeEventListener("load", refresh);
-      tween.scrollTrigger?.kill();
-      tween.kill();
-      split.revert();
-    };
-  }, { scope: sectionRef });
-
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section className="whoami-section" id="aboutMe">
-      <h1 className="whoami-sub-heading">01. About Me</h1>
-      <div className="whoami-content " ref={sectionRef}>
-        <div className="whoami-inner">
-          <p className="split" ref={textRef}>
+    <section className="wa-section" id="aboutMe" ref={sectionRef}>
+
+      {/* eyebrow */}
+      <div className="wa-eyebrow">
+        <span className="wa-eyebrow-line" />
+        <span className="wa-eyebrow-text">01 — About Me</span>
+        <span className="wa-eyebrow-line wa-eyebrow-line--right" />
+      </div>
+
+      <div className="wa-layout">
+
+        {/* ── LEFT ── */}
+        <div className="wa-text">
+
+          <span className="wa-label wa-reveal">Frontend Developer </span>
+
+          <h2 className="wa-name wa-reveal">
+            <span className="wa-name-solid">IBRAHIM</span>
+            <span className="wa-name-outline">ABDULNASSER</span>
+          </h2>
+
+          <div className="wa-divider wa-reveal">
+            <span className="wa-div-line" />
+            <span className="wa-div-label">The Story</span>
+            <span className="wa-div-line" />
+          </div>
+
+          <p className="wa-desc wa-reveal">
             {aboutmeDescription}
           </p>
+
+          <div className="wa-stats wa-reveal">
+            {STATS.map((s) => (
+              <div className="wa-stat" key={s.label}>
+                <span className="wa-stat-num">{s.num}</span>
+                <span className="wa-stat-label">{s.label}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* ── RIGHT ── */}
+        <div className="wa-image-side wa-reveal">
+          <div className="wa-frame" />
           <img
             src="/assets/images/common/myPhoto.jpg"
-            alt="whoami"
-            className="whoami-image"
+            alt="Ibrahim Abdulnasser"
+            className="wa-photo"
+            loading="eager"
+            decoding="async"
+            width="380"
+            height="507"
           />
+          <div className="wa-badge">
+            <div className="wa-badge-status">
+              <span className="wa-badge-dot" />
+              Available
+            </div>
+            <div className="wa-badge-role">Frontend Dev</div>
+          </div>
         </div>
+
       </div>
     </section>
   );

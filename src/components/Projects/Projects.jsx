@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import "./Projects.scss";
 
 const PROJECTS = [
   {
     title: "Farm Vet E-Shop",
-    desc: "Farm-Vet E-Shop is a full-stack e-commerce platform designed for the veterinary and farm supplies industry.",
+    desc: "Full-stack e-commerce for veterinary and farm supplies with Firebase backend and AI-powered product recommendations.",
     image: "/assets/images/common/proj1.png",
     tags: ["React JS", "Firebase", "Tailwind CSS", "AI Analytics"],
     links: [
-      { label: "Live Demo",    href: "https://farm-vet-e-shop-1.vercel.app" },
-      { label: "Source Code",  href: "https://github.com/ibrahi4/Farm-Vet-E-Shop-1" },
+      { label: "Live Demo",   href: "https://farm-vet-e-shop-1.vercel.app" },
+      { label: "Source Code", href: "https://github.com/ibrahi4/Farm-Vet-E-Shop-1" },
     ],
   },
   {
     title: "DRIVER APP (QTX) Dashboard",
-    desc: "QTX DRIVER Dashboard is a comprehensive fleet management solution designed to optimize operations for transportation companies.",
+    desc: "Fleet management dashboard with real-time tracking, route optimization and AI-powered insights on the MERN stack.",
     image: "/assets/images/common/QTX.png",
     tags: ["React JS", "Node JS", "Express JS", "MongoDB"],
     links: [
@@ -23,8 +23,8 @@ const PROJECTS = [
     ],
   },
   {
-    title: "TOTC - E-Learning Platform",
-    desc: "TOTC is a fully responsive E-learning platform built with React JS, Firebase, and Tailwind CSS.",
+    title: "TOTC — E-Learning Platform",
+    desc: "Responsive E-learning platform with course management, user auth and an AI-powered chatbot for personalized support.",
     image: "/assets/images/common/proj2.png",
     tags: ["React JS", "Firebase", "Tailwind CSS", "AI Chatbot"],
     links: [
@@ -34,7 +34,7 @@ const PROJECTS = [
   },
   {
     title: "Tinyales Clothes Store",
-    desc: "TinyTales is a modern e-commerce platform built with Next.js, Node.js, Express, and Tailwind CSS.",
+    desc: "Modern e-commerce with Next.js featuring user auth, product management and an AI recommendation engine.",
     image: "/assets/images/common/tintyles.png",
     tags: ["Next JS", "Node JS", "Express JS", "MongoDB"],
     links: [
@@ -44,7 +44,7 @@ const PROJECTS = [
   },
   {
     title: "Furniture E-Commerce App",
-    desc: "Furniture E-Commerce App is a mobile application built with React Native, Expo, Redux, and Firebase.",
+    desc: "Cross-platform mobile shopping app with product browsing, user auth and AI-powered furniture recommendations.",
     image: "/assets/images/common/furnitureapp.png",
     tags: ["React Native", "Expo", "Redux", "Firebase"],
     links: [
@@ -55,49 +55,36 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
-  const [isMobile, setIsMobile] = useState(false);
-  const observerRef = useRef(null);
   const cardsRef = useRef([]);
 
-  // Detect mobile
+  /* ✅ preload all images on mount — يتحملوا قبل ما المستخدم يوصل */
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    PROJECTS.forEach(({ image }) => {
+      const img = new Image();
+      img.src = image;
+    });
   }, []);
 
-  /* ── Simplified Observer for Mobile ── */
+  /* ✅ Intersection Observer — reveal on scroll */
   useEffect(() => {
-    const options = {
-      threshold: isMobile ? 0.05 : 0.08,
-      rootMargin: isMobile ? "200px 0px" : "100px 0px",
-    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
+    );
 
-    observerRef.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observerRef.current?.unobserve(entry.target);
-        }
-      });
-    }, options);
+    cardsRef.current.forEach((card) => card && io.observe(card));
+    return () => io.disconnect();
+  }, []);
 
-    cardsRef.current.forEach((card) => {
-      if (card) observerRef.current?.observe(card);
-    });
-
-    return () => {
-      observerRef.current?.disconnect();
-    };
-  }, [isMobile]);
-
-  const setCardRef = useCallback((el, index) => {
-    if (el) {
-      cardsRef.current[index] = el;
-    }
+  const setCardRef = useCallback((el, i) => {
+    cardsRef.current[i] = el;
   }, []);
 
   return (
@@ -107,23 +94,23 @@ export default function Projects() {
         <p className="sectionKicker">04. PROJECTS</p>
         <h2 className="sectionTitle">PROJECTS</h2>
         <p className="sectionSub">
-          A selection of builds that showcase frontend motion craft and cloud-first architecture.
+          A selection of builds that showcase frontend craft and cloud-first architecture.
         </p>
       </div>
 
       <div className="projectsGrid">
         {PROJECTS.map((p, i) => (
           <article
-            className="projectCard"
             key={p.title}
+            className="projectCard"
             ref={(el) => setCardRef(el, i)}
-            style={{ "--card-index": i }}
+            style={{ "--i": i }}
           >
             <div className="projectMedia">
-              <img 
-                src={p.image} 
-                alt={p.title} 
-                loading="lazy"
+              <img
+                src={p.image}
+                alt={p.title}
+                loading={i < 2 ? "eager" : "lazy"}
                 decoding="async"
                 width="640"
                 height="360"
@@ -145,14 +132,12 @@ export default function Projects() {
                 {p.links.map((l) => (
                   <a
                     key={l.label}
-                    className={`projectBtn ${l.label === "Live Demo" ? "btnPrimary" : "btnSecondary"}`}
                     href={l.href}
                     target="_blank"
                     rel="noreferrer"
+                    className={`projectBtn ${l.label === "Live Demo" ? "btnPrimary" : "btnSecondary"}`}
                   >
-                    <span className="btnIcon">
-                      {l.label === "Live Demo" ? "⚡" : "⌥"}
-                    </span>
+                    <span className="btnIcon">{l.label === "Live Demo" ? "⚡" : "⌥"}</span>
                     <span className="btnText">{l.label}</span>
                   </a>
                 ))}

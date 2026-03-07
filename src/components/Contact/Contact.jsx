@@ -76,7 +76,7 @@ export default function Contact() {
   { 
     icon: "/assets/images/tech-icons/phone-call-24-hours-svgrepo-com.svg",
     label: "Response time",
-    value: "Within 24 hours"
+    value: "Within 24 hours +201091857418"
   },
   { 
     icon: "/assets/images/tech-icons/coding-html-svgrepo-com.svg",
