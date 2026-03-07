@@ -111,9 +111,9 @@ const Navbar = () => {
             {link.label}
           </a>
         ))}
-        <a
+         <a
               className="download-button"
-              href="/vite-project/public/assets/files/Ibrahim_Abdulnasser_Front-End_React.pdf"
+              href="/MyCv.pdf"
               download="Ibrahim_Abdulnasser_Front-End_React.pdf"
             >
               RESUME

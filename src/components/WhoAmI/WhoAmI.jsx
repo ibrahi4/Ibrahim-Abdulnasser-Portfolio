@@ -86,13 +86,7 @@ const WhoAmI = () => {
             width="380"
             height="507"
           />
-          <div className="wa-badge">
-            <div className="wa-badge-status">
-              <span className="wa-badge-dot" />
-              Available
-            </div>
-            <div className="wa-badge-role">Frontend Dev</div>
-          </div>
+    
         </div>
 
       </div>
