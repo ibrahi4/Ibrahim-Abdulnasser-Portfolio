@@ -235,17 +235,16 @@
 
   &:active { transform: scale(0.96); }
 }
-
 .btnPrimary {
-  background: linear-gradient(135deg, #e98e06, #fa4c0d);
-  box-shadow: 0 3px 14px rgba(233, 142, 6, 0.28);
-  &:hover { box-shadow: 0 5px 20px rgba(233, 142, 6, 0.45); }
+  background: linear-gradient(135deg, #e98e06 60%, #fa4c0d 40%);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(0,180,255,0.3), 0 4px 18px rgba(0,140,255,0.3);
 }
 
 .btnSecondary {
-  background: linear-gradient(135deg, #c8016b, #a31967);
-  box-shadow: 0 3px 14px rgba(200, 1, 107, 0.25);
-  &:hover { box-shadow: 0 5px 20px rgba(200, 1, 107, 0.42); }
+  background: linear-gradient(135deg, #c8016b 60%, #a31967 40%);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(247,37,133,0.3), 0 4px 18px rgba(247,37,133,0.25);
 }
 
 .btnIcon { font-size: 0.85rem; position: relative; z-index: 1; }

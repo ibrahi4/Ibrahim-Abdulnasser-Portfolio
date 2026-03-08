@@ -31,7 +31,7 @@
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(120px);
+  background: rgba(14, 14, 16, 0.97);
   z-index: 0;
 }
 .ct-glow-1 {
@@ -292,8 +292,7 @@
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid var(--border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+ background: rgba(14, 14, 16, 0.97);
   position: relative;
   overflow: hidden;
 

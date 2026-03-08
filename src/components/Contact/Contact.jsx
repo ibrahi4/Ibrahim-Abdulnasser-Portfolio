@@ -25,10 +25,7 @@ export default function Contact() {
   return (
     <section id="contact" className="ct-section">
 
-      {/* ambient glows */}
-      <div className="ct-glow ct-glow-1" />
-      <div className="ct-glow ct-glow-2" />
-      <div className="ct-glow ct-glow-3" />
+      
 
       <div className="ct-inner">
 
